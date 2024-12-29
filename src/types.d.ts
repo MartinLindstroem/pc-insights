@@ -45,3 +45,13 @@ export interface DiskInterface {
   vendor?: string;
   size?: number;
 }
+
+export interface SystemInterface {
+  manufacturer?: string;
+  model?: string;
+  serial?: string;
+  sku?: string;
+  uuid?: string;
+  version?: string;
+  virtual?: boolean;
+}

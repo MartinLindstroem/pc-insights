@@ -26,6 +26,7 @@ onBeforeMount(async () => {
       :graphics="systemInfo.graphics.controllers"
       :displays="systemInfo.graphics.displays"
       :disk="systemInfo.diskLayout"
+      :system="systemInfo.system"
     />
     <Cpu :cpu="systemInfo.cpu" />
     <Gpu :controllers="systemInfo.graphics.controllers" />

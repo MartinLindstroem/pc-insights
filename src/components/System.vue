@@ -11,6 +11,7 @@ import {
   DisplayInterface,
   OperatingSystemInterface,
   DiskInterface,
+  SystemInterface,
 } from "../types.d.ts";
 import { convertBytes } from "../helpers";
 interface Props {
@@ -20,6 +21,7 @@ interface Props {
   displays: DisplayInterface[];
   os: OperatingSystemInterface;
   disk: DiskInterface[];
+  system: SystemInterface;
 }
 const props = defineProps<Props>();
 
@@ -46,16 +48,16 @@ const formattedTime = computed(() => {
 
   return `${String(hours)}:${String(minutes)}:${String(seconds)}`;
 });
-
-console.log("PROPS: ", props);
-console.log(props.disk[0].size);
-console.log(props.ram);
 </script>
 
 <template>
   <div class="infoBox">
     <h2>System</h2>
     <p><strong>Operating System:</strong> {{ props.os.distro ? props.os.distro : "N/A" }}</p>
+    <p>
+      <strong>Motherboard:</strong>
+      {{ props.system.model ? props.system.manufacturer + " " + props.system.model : "N/A" }}
+    </p>
     <p>
       <strong>Processor:</strong>
       {{
@@ -68,7 +70,7 @@ console.log(props.ram);
       <strong>Graphics card:</strong>
       {{ props.graphics[0] ? props.graphics[0].model : "N/A" }}
     </p>
-    <p><strong>RAM:</strong> {{ props.ram ? convertBytes(props.ram) : "N/A" }} GB</p>
+    <p><strong>RAM:</strong> {{ props.totalRam ? convertBytes(props.totalRam) : "N/A" }}</p>
     <p>
       <strong>Disk:</strong>
       {{

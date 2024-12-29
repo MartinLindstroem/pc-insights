@@ -1,9 +1,12 @@
 import si, { diskLayout, memLayout } from "systeminformation";
 import os from "os";
 import { exec } from "child_process";
+import { stderr } from "process";
 const getMotherboardInfo = async () => {
-  let motherboard;
-  console.log(os.platform());
+  let motherboard = {
+    manufacturer: "",
+    model: "",
+  };
 
   if (os.platform() === "win32") {
     try {
@@ -17,54 +20,13 @@ const getMotherboardInfo = async () => {
           return;
         }
 
-        // Split lines and parse
         const lines = stdout.split("\n").filter((line) => line.trim() !== "");
-        const dataLine = lines[1]; // Second line contains the data
+        if (lines.length > 1) {
+          const [manufacturer, model] = lines[1].split(/\s{2,}/).map((item) => item.trim());
 
-        const [manufacturer, model] = dataLine.split(/\s{2,}/).map((item) => item.trim());
-
-        motherboard = {
-          manufacturer,
-          model,
-        };
-      });
-    } catch (error) {
-      console.log(error);
-    }
-  } else {
-    try {
-      exec("sudo dmidecode -t baseboard", (error, stdout, stderr) => {
-        if (error) {
-          console.error(`Error executing command: ${error.message}`);
-          return;
+          motherboard.manufacturer = manufacturer;
+          motherboard.model = model;
         }
-        if (stderr) {
-          console.error(`Error: ${stderr}`);
-          return;
-        }
-
-        console.log("STANDOUT", stdout);
-
-        const lines = stdout.split("\n");
-        let manufacturer = "";
-        let model = "";
-
-        // Parse the lines for Manufacturer and Product Name
-        lines.forEach((line) => {
-          if (line.includes("Manufacturer:")) {
-            manufacturer = line.split(":")[1].trim();
-          }
-          if (line.includes("Product Name:")) {
-            model = line.split(":")[1].trim();
-          }
-        });
-
-        motherboard = {
-          manufacturer,
-          model,
-        };
-
-        console.log(motherboard);
       });
     } catch (error) {
       console.log(error);
@@ -89,8 +51,13 @@ export const getSystemInfo = async () => {
 
   //   si.get(valueObject).then((data) => console.log(data));
   try {
+    const motherboard = await getMotherboardInfo();
     const systemInfo = await si.get(valueObject);
-    systemInfo.motherboard = await getMotherboardInfo();
+    if (systemInfo.system.manufacturer === "") {
+      systemInfo.system.manufacturer = motherboard.manufacturer;
+    }
+    systemInfo.system.model = motherboard.model;
+
     return systemInfo;
   } catch (error) {
     console.log(error);

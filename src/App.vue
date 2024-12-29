@@ -1,9 +1,11 @@
 <script setup>
 import { onBeforeMount, ref, onMounted } from "vue";
-import Cpu from "./components/cpu/Cpu.vue";
-import Gpu from "./components/gpu/Gpu.vue";
-import System from "./components/system/System.vue";
-import Display from "./components/gpu/Display.vue";
+import Cpu from "./components/Cpu.vue";
+import Gpu from "./components/Gpu.vue";
+import System from "./components/System.vue";
+import Display from "./components/Display.vue";
+import Ram from "./components/Ram.vue";
+import Disk from "./components/Disk.vue";
 
 const systemInfo = ref(null);
 
@@ -11,28 +13,25 @@ onBeforeMount(async () => {
   const pc = window.pc;
   const system = await pc.getSystemInfo();
   systemInfo.value = system;
-  console.log(systemInfo.value);
+  console.log("SYSTEM INFO: ", systemInfo.value);
 });
 </script>
 
 <template>
   <div class="container">
     <System
-      :manufacturer="systemInfo.system.manufacturer"
-      :model="systemInfo.system.model"
-      :os="systemInfo.osInfo.platform"
-      :uptime="systemInfo.time.uptime"
+      :os="systemInfo.osInfo"
+      :cpu="systemInfo.cpu"
+      :totalRam="systemInfo.mem.total"
+      :graphics="systemInfo.graphics.controllers"
+      :displays="systemInfo.graphics.displays"
+      :disk="systemInfo.diskLayout"
     />
-    <Cpu
-      :manufacturer="systemInfo.cpu.manufacturer"
-      :brand="systemInfo.cpu.brand"
-      :speed="systemInfo.cpu.speed"
-      :cores="systemInfo.cpu.cores"
-      :physicalCores="systemInfo.cpu.physicalCores"
-      :socket="systemInfo.cpu.socket"
-    />
+    <Cpu :cpu="systemInfo.cpu" />
     <Gpu :controllers="systemInfo.graphics.controllers" />
     <Display :displays="systemInfo.graphics.displays" />
+    <Ram :ram="systemInfo.memLayout" :total="systemInfo.mem.total" />
+    <Disk :disks="systemInfo.diskLayout" />
   </div>
 </template>
 

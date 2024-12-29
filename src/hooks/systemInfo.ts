@@ -1,12 +1,15 @@
-import si from "systeminformation";
+import si, { diskLayout, memLayout } from "systeminformation";
 
 export const getSystemInfo = async () => {
   // define all values, you want to get back
   const valueObject = {
     cpu: "*",
     graphics: "*",
-    osInfo: "platform, release",
-    system: "model, manufacturer",
+    osInfo: "*",
+    system: "*",
+    mem: "total",
+    memLayout: "*",
+    diskLayout: "device, type, name, vendor, size",
     time: "uptime",
   };
 

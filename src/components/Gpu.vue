@@ -1,38 +1,9 @@
 <script setup lang="ts">
 import { onBeforeMount, ref, onMounted } from "vue";
-
-interface GraphicsController {
-  bus: string;
-  busAddress: string;
-  model: string;
-  pciID: string;
-  subVendor: string;
-  vendor: string;
-  vram: number;
-  vramDynamic: boolean;
-}
-
-interface Display {
-  builtin: boolean;
-  connection: string;
-  currentRefreshRate: number;
-  currentResX: number;
-  currentResY: number;
-  deviceName: string;
-  main: boolean;
-  model: string;
-  pixelDepth: number;
-  positionX: number;
-  positionY: number;
-  resolutionX: number;
-  resolutionY: number;
-  sizeX: number;
-  sizeY: number;
-  vendor: string;
-}
+import GraphicsControllerInterface from "../types.d.ts";
 
 interface Props {
-  controllers: GraphicsController[];
+  controllers: GraphicsControllerInterface[];
 }
 
 const props = defineProps<Props>();

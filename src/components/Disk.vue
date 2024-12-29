@@ -1,10 +1,10 @@
 <script setup lang="ts">
 import { onBeforeMount, ref, onMounted } from "vue";
-import { DiskInterface } from "../types.d.ts";
+import type { DiskType } from "../types.d.ts";
 import { convertBytes } from "../helpers";
-interface Props {
-  disks: DiskInterface[];
-}
+type Props = {
+  disks: DiskType[];
+};
 
 const props = defineProps<Props>();
 </script>

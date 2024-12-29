@@ -1,13 +1,13 @@
-export interface CpuInterface {
+export type CpuType = {
   manufacturer?: string;
   brand?: string;
   speed?: number;
   cores?: number;
   physicalCores?: number;
   socket?: string;
-}
+};
 
-export interface GraphicsControllerInterface {
+export type GraphicsControllerType = {
   bus?: string;
   busAddress?: string;
   model?: string;
@@ -16,37 +16,37 @@ export interface GraphicsControllerInterface {
   vendor?: string;
   vram?: number;
   vramDynamic?: boolean;
-}
+};
 
-export interface DisplayInterface {
+export type DisplayType = {
   model?: string;
   vendor?: string;
   resolutionX?: number;
   resolutionY?: number;
-}
+};
 
-export interface RamInterface {
+export type RamType = {
   total?: number;
   size?: number;
   speed?: number;
   type?: string;
-}
-export interface OperatingSystemInterface {
+};
+export type OperatingSystemType = {
   platform?: string;
   distro?: string;
   release?: string;
   arch?: string;
-}
+};
 
-export interface DiskInterface {
+export type DiskType = {
   device?: string;
   type?: string;
   name?: string;
   vendor?: string;
   size?: number;
-}
+};
 
-export interface SystemInterface {
+export type SystemType = {
   manufacturer?: string;
   model?: string;
   serial?: string;
@@ -54,4 +54,4 @@ export interface SystemInterface {
   uuid?: string;
   version?: string;
   virtual?: boolean;
-}
+};

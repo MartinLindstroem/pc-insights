@@ -1,9 +1,9 @@
 <script setup lang="ts">
 import { onBeforeMount, ref, onMounted } from "vue";
-import { CpuInterface } from "../types.d.ts";
-interface Props {
-  cpu: CpuInterface;
-}
+import type { CpuType } from "../types.d.ts";
+type Props = {
+  cpu: CpuType;
+};
 
 const props = defineProps<Props>();
 </script>

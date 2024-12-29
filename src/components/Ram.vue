@@ -1,11 +1,10 @@
 <script setup lang="ts">
-import { onBeforeMount, ref, onMounted } from "vue";
-import { RamInterface } from "../types.d.ts";
+import type { RamType } from "../types.d.ts";
 import { convertBytes } from "../helpers";
-interface Props {
+type Props = {
   total: number;
-  ram: RamInterface[];
-}
+  ram: RamType[];
+};
 
 const props = defineProps<Props>();
 </script>

@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { onBeforeMount, ref, onMounted } from "vue";
+import { ref } from "vue";
 
 interface Display {
   builtin: boolean;
@@ -25,15 +25,35 @@ interface Props {
 }
 
 const props = defineProps<Props>();
+const isExpanded = ref(false);
+
+const toggleExpand = () => {
+  isExpanded.value = !isExpanded.value;
+};
 </script>
 
 <template>
   <div class="infoBox">
-    <h2>Display</h2>
-    <div v-for="(display, index) in props.displays" :key="index" class="display">
-      <p><strong>Model:</strong> {{ display.model }}</p>
-      <p><strong>Vendor:</strong> {{ display.vendor }}</p>
-      <p><strong>Resolution:</strong> {{ display.resolutionX }} x {{ display.resolutionY }}</p>
+    <h2 @click="toggleExpand">Display</h2>
+    <div v-if="isExpanded">
+      <div v-for="(display, index) in props.displays" :key="index" class="display">
+        <h3>Display {{ index + 1 }}</h3>
+        <p><strong>Model:</strong> {{ display.model || "N/A" }}</p>
+        <p><strong>Vendor:</strong> {{ display.vendor || "N/A" }}</p>
+        <p><strong>Resolution:</strong> {{ display.resolutionX }} x {{ display.resolutionY }}</p>
+        <p><strong>Current refresh rate:</strong> {{ display.currentRefreshRate }} Hz</p>
+      </div>
     </div>
   </div>
 </template>
+
+<style scoped>
+h2 {
+  cursor: pointer;
+  margin: 0;
+}
+
+.infoBox {
+  transition: all 0.3s ease;
+}
+</style>

@@ -42,13 +42,11 @@ onBeforeMount(async () => {
   color: #fff;
   min-height: 100vh;
   max-width: 100vw;
-  /* margin: 0; */
 }
 
 .container {
   display: flex;
   flex-direction: column;
-  /* justify-content: center; */
   align-items: center;
 }
 

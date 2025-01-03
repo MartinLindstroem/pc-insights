@@ -28,7 +28,7 @@ export type DisplayType = {
 export type RamType = {
   total?: number;
   size?: number;
-  speed?: number;
+  clockSpeed?: number;
   type?: string;
 };
 export type OperatingSystemType = {

@@ -24,31 +24,46 @@ const props = defineProps<Props>();
 <template>
   <div class="infoBox">
     <h2>System</h2>
-    <p><strong>Operating System:</strong> {{ props.os.distro ? props.os.distro : "N/A" }}</p>
-    <p>
-      <strong>Motherboard:</strong>
-      {{ props.system.model ? props.system.manufacturer + " " + props.system.model : "N/A" }}
-    </p>
-    <p>
-      <strong>Processor:</strong>
-      {{
-        props.cpu.brand && props.cpu.manufacturer
-          ? props.cpu.manufacturer + " " + props.cpu.brand
-          : "N/A"
-      }}
-    </p>
-    <p>
-      <strong>Graphics card:</strong>
-      {{ props.graphics[0] ? props.graphics[0].model : "N/A" }}
-    </p>
-    <p><strong>RAM:</strong> {{ props.totalRam ? convertBytes(props.totalRam) : "N/A" }}</p>
-    <p>
-      <strong>Disk:</strong>
-      {{
-        props.disk[0].name && props.disk[0].size
-          ? props.disk[0].name + " (" + convertBytes(props.disk[0].size) + " )"
-          : "N/A"
-      }}
-    </p>
+    <div class="system">
+      <div>
+        <p><strong>Operating System:</strong> {{ props.os.distro ? props.os.distro : "N/A" }}</p>
+        <p>
+          <strong>Motherboard:</strong>
+          {{ props.system.model ? props.system.manufacturer + " " + props.system.model : "N/A" }}
+        </p>
+        <p>
+          <strong>Processor:</strong>
+          {{
+            props.cpu.brand && props.cpu.manufacturer
+              ? props.cpu.manufacturer + " " + props.cpu.brand
+              : "N/A"
+          }}
+        </p>
+      </div>
+      <div>
+        <p>
+          <strong>Graphics card:</strong>
+          {{ props.graphics[0] ? props.graphics[0].model : "N/A" }}
+        </p>
+        <p><strong>RAM:</strong> {{ props.totalRam ? convertBytes(props.totalRam) : "N/A" }}</p>
+      </div>
+      <div>
+        <div v-for="(disk, index) in props.disk" :key="index" class="disk">
+          <p>
+            <strong>Disk {{ index + 1 }}:</strong>
+            {{ disk.name && disk.size ? disk.name + " (" + convertBytes(disk.size) + " )" : "N/A" }}
+          </p>
+        </div>
+      </div>
+    </div>
   </div>
 </template>
+
+<style scoped>
+.system {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 10px;
+}
+</style>

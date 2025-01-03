@@ -37,7 +37,6 @@ const getMotherboardInfo = async () => {
 };
 
 export const getSystemInfo = async () => {
-  // define all values, you want to get back
   const valueObject = {
     cpu: "*",
     graphics: "*",
@@ -49,7 +48,6 @@ export const getSystemInfo = async () => {
     time: "uptime",
   };
 
-  //   si.get(valueObject).then((data) => console.log(data));
   try {
     const motherboard = await getMotherboardInfo();
     const systemInfo = await si.get(valueObject);
@@ -63,5 +61,3 @@ export const getSystemInfo = async () => {
     console.log(error);
   }
 };
-
-// export default getGpuInfo;

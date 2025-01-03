@@ -18,7 +18,7 @@ const toggleExpand = () => {
 
 <template>
   <div class="infoBox">
-    <h2 @click="toggleExpand">RAM</h2>
+    <h2 :class="{ collapsed: !isExpanded }" @click="toggleExpand">RAM</h2>
     <div v-if="isExpanded">
       <p><strong>Total:</strong> {{ convertBytes(props.total) }}</p>
       <div v-for="(ram, index) in props.ram" :key="index" class="controller">
@@ -39,5 +39,15 @@ h2 {
 
 .infoBox {
   transition: all 0.3s ease;
+}
+
+h2::after {
+  content: "▼";
+  margin-left: 0.5rem;
+  font-size: 0.8rem;
+}
+
+h2.collapsed::after {
+  content: "►";
 }
 </style>

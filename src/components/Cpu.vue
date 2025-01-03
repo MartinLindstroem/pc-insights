@@ -15,7 +15,7 @@ const toggleExpand = () => {
 
 <template>
   <div class="infoBox">
-    <h2 @click="toggleExpand">CPU</h2>
+    <h2 :class="{ collapsed: !isExpanded }" @click="toggleExpand">CPU</h2>
     <div v-if="isExpanded">
       <p>Manufacturer: {{ props.cpu.manufacturer }}</p>
       <p>Brand: {{ props.cpu.brand }}</p>
@@ -35,5 +35,15 @@ h2 {
 
 .infoBox {
   transition: all 0.3s ease;
+}
+
+h2::after {
+  content: "▼";
+  margin-left: 0.5rem;
+  font-size: 0.8rem;
+}
+
+h2.collapsed::after {
+  content: "►";
 }
 </style>

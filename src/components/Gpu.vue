@@ -17,7 +17,7 @@ const toggleExpand = () => {
 
 <template>
   <div class="infoBox">
-    <h2 @click="toggleExpand">Graphics</h2>
+    <h2 :class="{ collapsed: !isExpanded }" @click="toggleExpand">Graphics</h2>
     <div v-if="isExpanded">
       <div v-for="(controller, index) in props.controllers" :key="index" class="controller">
         <p><strong>Vendor:</strong> {{ controller.vendor }}</p>
@@ -41,5 +41,15 @@ h2 {
 
 .infoBox {
   transition: all 0.3s ease;
+}
+
+h2::after {
+  content: "▼";
+  margin-left: 0.5rem;
+  font-size: 0.8rem;
+}
+
+h2.collapsed::after {
+  content: "►";
 }
 </style>
